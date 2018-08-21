@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[user]
+  name = PoiScript
+  email = poiscript@gmail.com
+[core]
+  editor = emacsclient -c
+[alias]
+[credential]
+  helper = cache --timeout=3600
