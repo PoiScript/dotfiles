@@ -41,7 +41,6 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
 
      ;; Spacemacs Layers
-     poi-ui
      spacemacs-editing
      spacemacs-evil
      spacemacs-navigation
@@ -76,6 +75,9 @@ This function should only modify configuration layer settings."
 
      ;; Misc
      neotree
+
+     ;; Private Layers
+     poi-ui
      )
 
    ;; List of additional packages that will be installed without being
@@ -85,7 +87,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(cdlatex auctex fcitx tiny nyan-mode)
+   dotspacemacs-additional-packages '(cdlatex auctex fcitx tiny)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -332,7 +334,7 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 85
+   dotspacemacs-active-transparency 90
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
@@ -505,8 +507,6 @@ before packages are loaded."
         (spacemacs/enable-transparency))))
 
   (window-system-setup)
-
-  (nyan-mode t)
 
   (spacemacs/set-leader-keys
     "oO"  'poi-dollars
