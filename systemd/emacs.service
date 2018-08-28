@@ -1,0 +1,17 @@
+[Unit]
+Description=Emacs text editor
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/emacs --fg-daemon
+ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+# fcitx
+Environment=GTK_IM_MODULE=fcitx
+Environment=QT_IM_MODULE=fctix
+Environment=XMODIFIERS="@im=fcitx"
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
