@@ -4,3 +4,5 @@ cp -r ~/.spacemacs.d/ .
 cp -r ~/.tmux.conf .
 # gitconfig
 cp -r ~/.gitconfig .
+# Doom Emacs
+cp -r ~/.doom.d/ .
