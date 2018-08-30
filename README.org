@@ -1,0 +1,28 @@
+* Dotfiles
+
+#+BEGIN_QUOTE
+Use it at your own risk. :)
+#+END_QUOTE
+
+**  Doom Emacs ~.doom.d~
+
+[[file:images/doom-emacs.png]]
+
+*** Install
+
+#+BEGIN_SRC bash
+git clone -b develop https://github.com/hlissner/doom-emacs ~/.emacs.d && cd ~/.emacs.d
+make quickstart
+
+# Rust Language Server
+rustup component add rls-preview rust-analysis rust-src
+#+END_SRC
+
+*** Note
+
+If you can't get the complete for the extern crate when using ~lsp-rust~. You
+can run the command ~cargo metadata~ and then try again.
+
+** Tmux ~.tmux.conf~
+
+[[file:images/tmux.png]]
