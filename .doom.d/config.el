@@ -1,21 +1,20 @@
 ;; -*- lexical-binding: t; -*-
 ;;; ~/.doom.d/config.el
 
+;; packages
+(after! org
+  (setq org-log-done 'time)
+  (setq org-agenda-files (file-expand-wildcards "~/org/calendar/*.org"))
+  (remove-hook 'org-mode-hook #'doom|disable-line-numbers))
+
 (def-package! fcitx
   :config
   (setq fcitx-active-evil-states '(insert emacs))
   (fcitx-aggressive-setup)
   (setq fcitx-use-dbus t))
 
-(after! org
-  (setq org-log-done 'time)
-  (setq org-agenda-files (file-expand-wildcards "~/org/calendar/*.org"))
-  (remove-hook 'org-mode-hook #'doom|disable-line-numbers))
-
 (def-package! lsp-rust
-  :hook (rust-mode . lsp-rust-enable)
-  :init
-  (setq lsp-rust-rls-command '("rustup" "run" "nightly" "rls")))
+  :hook (rust-mode . lsp-rust-enable))
 
 (def-package! lsp-mode
   :commands (lsp-mode lsp-define-stdio-client))
@@ -35,5 +34,9 @@
 (def-package! company-lsp
   :after lsp-mode
   :config
-  (set! :company-backend 'lsp-mode '(company-lsp))
+  (set-company-backend! 'lsp-mode '(company-lsp))
   (setq company-lsp-enable-recompletion t))
+
+;; key-binding
+(map!
+ :gnvime "C-/" #'comment-line)

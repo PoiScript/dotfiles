@@ -1,16 +1,16 @@
 ;; -*- lexical-binding: t; -*-
 ;;; ~/.doom.d/init.el
 
-(setq doom-font (font-spec :family "Fira Code" :size 22))
-(set-fontset-font t 'japanese-jisx0208 (font-spec :family "noto sans cjk jp" :size 19))
-(set-fontset-font t 'han (font-spec :family "noto sans cjk sc" :size 19))
-
 (setq package-archives
       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-
+(setq display-line-numbers-type 'relative)
 (setq doom-themes-enable-bold nil)
+
+(setq doom-font (font-spec :family "Fira Code" :size 22))
+(set-fontset-font t 'japanese-jisx0208 (font-spec :family "noto sans cjk jp" :size 19))
+(set-fontset-font t 'han (font-spec :family "noto sans cjk sc" :size 19))
 
 (doom! :feature
       ;debugger          ; FIXME stepping through code, to help you add bugs
@@ -163,5 +163,4 @@
        ;; and additional ex commands for evil-mode. Use it as a reference for
        ;; your own modules.
        (default +bindings +snippets +evil-commands))
-
 
