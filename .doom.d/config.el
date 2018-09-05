@@ -4,8 +4,31 @@
 ;; packages
 (after! org
   (setq org-log-done 'time)
+  (plist-put org-format-latex-options :scale 2)
   (setq org-agenda-files (file-expand-wildcards "~/org/calendar/*.org"))
+  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
   (remove-hook 'org-mode-hook #'doom|disable-line-numbers))
+
+(def-package! cdlatex
+  :config
+  (setq cdlatex-command-alist
+        '(("lim"        "Insert \\lim_{}\\limits_{}"
+           "\\lim\\limits_{?}"  cdlatex-position-cursor nil nil t)
+          ("sin"        "Insert \\sin"
+           "\\sin"       nil nil t t)
+          ("cos"        "Insert \\cos"
+           "\\cos"       nil nil t t)
+          ("under"      "Insert \\underset{}{}"
+           "\\underset{?}{}" cdlatex-position-cursor nil nil t)
+          ("prod"       "Insert \\prod\\limits_{}"
+           "\\prod\\limits_{?}" cdlatex-position-cursor nil nil t)
+          ("txt"        "Insert \\text{}"
+           "\\text{?}" cdlatex-position-cursor nil nil t)
+          ("iintl"      "Insert \\iint\\limits_{}"
+           "\\iint\\limits_{?}" cdlatex-position-cursor nil nil t)))
+  (setq cdlatex-env-alist
+        '(("cases" "\\begin{cases}\n?\n\\end{cases}\n" nil)
+          ("aligned" "\\begin{aligned}\n?\n\\end{aligned}\n" nil))))
 
 (def-package! fcitx
   :config
