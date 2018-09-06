@@ -9,8 +9,16 @@
 (setq doom-themes-enable-bold nil)
 
 (setq doom-font (font-spec :family "Fira Code" :size 22))
-(set-fontset-font t 'japanese-jisx0208 (font-spec :family "noto sans cjk jp" :size 19))
-(set-fontset-font t 'han (font-spec :family "noto sans cjk sc" :size 19))
+
+(defun window-system-setup (&optional frame)
+  (with-selected-frame (or frame (selected-frame))
+    (when window-system
+      (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Noto Sans CJK JP" :size 19))
+      (set-fontset-font t 'han (font-spec :family "Noto Sans CJK SC" :size 19)))))
+
+(add-hook 'after-make-frame-functions 'window-system-setup)
+
+(window-system-setup)
 
 (doom! :feature
       ;debugger          ; FIXME stepping through code, to help you add bugs
