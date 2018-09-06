@@ -11,18 +11,55 @@ Use it at your own risk. :)
 *** Install
 
 #+BEGIN_SRC bash
-git clone -b develop https://github.com/hlissner/doom-emacs ~/.emacs.d && cd ~/.emacs.d
+git clone -b develop https://github.com/hlissner/doom-emacs ~/.emacs.d
+cd ~/.emacs.d
 make quickstart
-
-# Rust Language Server
-rustup component add rls-preview rust-analysis rust-src
 #+END_SRC
 
-*** Note
+*** Emacs daemon
 
-If you can't get the complete for the extern crate when using ~lsp-rust~. You
-can run the command ~cargo metadata~ and then try again.
+I highly recommend using ~systemd~ for managing Emacs daemon. You can find my
+service unit file at
+[[https://github.com/PoiScript/dotfiles/blob/master/systemd/emacs.service][here]].
+
+*Note*:
+
++ Sometimes, your GUI-specify configuration (e.g. changing font family for
+  specific fontset or toggling transparent background) may not be applied when
+  using ~emacsclient -c~. Because Emacs is started up by the ~systemd~ and there
+  doesn't exist any graphical display so your configuration is ignored. A
+  [[https://github.com/PoiScript/dotfiles/blob/master/.doom.d/init.el#L13-L19][workaround]]
+  is to hook up ~after-make-frame-functions~ and check if the frame is on a
+  graphical display.
+
+*** rls (rust language server)
+
+At the time of writing (2018-9-6), Doom Emacs
+[[https://github.com/hlissner/doom-emacs/pull/716][doesn't support lsp (language
+server protocol)]]. But it's quite easy to
+[[https://github.com/PoiScript/dotfiles/blob/master/.doom.d/config.el#L39-L61][make
+it happens.]]
+
+*Note*:
+
++ Make sure you have installed rls: ~rustup component add rls-preview
+  rust-analysis rust-src~ first.
+
++ If you can't get the completion for the extern crate, you can run ~cargo
+  metadata~ and then try again.
 
 ** Tmux ~.tmux.conf~
 
 [[file:images/tmux.png]]
+
+*** Install
+
+Install ~xclip~ for accessing system clipboard.
+
+*** Key binding
+
+*Create pane*: ~C-t \~, ~C-t -~
+
+*Navigate pane*: ~C-t h~, ~C-t j~, ~C-t k~, ~C-t l~
+
+*Navigate window*: ~M-k~, ~M-j~
