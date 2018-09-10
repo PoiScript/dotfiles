@@ -6,6 +6,8 @@ cp -r ~/.tmux.conf .
 cp -r ~/.gitconfig .
 # Doom Emacs
 cp -r ~/.doom.d/ .
+# Fish Shell
+cp -r ~/.config/fish/config.fish .
 
 # Systemd Unit Files
 mkdir -p systemd
