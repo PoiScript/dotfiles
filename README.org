@@ -4,7 +4,7 @@
 Use it at your own risk. :)
 #+END_QUOTE
 
-**  Doom Emacs ~.doom.d~
+** Doom Emacs ~.doom.d~
 
 [[file:images/doom-emacs.png]]
 
@@ -63,3 +63,13 @@ Install ~xclip~ for accessing system clipboard.
 *Navigate pane*: ~C-t h~, ~C-t j~, ~C-t k~, ~C-t l~
 
 *Navigate window*: ~M-k~, ~M-j~
+
+** Fish Shell ~config.fish~
+
+My prompt is inspired by [[https://github.com/oh-my-fish/theme-default][omf(oh-my-fish) default theme]].
+
+*** Completions
+
+#+BEGIN_SRC bash
+rustup completions fish > ~/.config/fish/completions/rustup.fish
+#+END_SRC
