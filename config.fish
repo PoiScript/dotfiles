@@ -8,5 +8,5 @@ function emacs
 end
 
 function rm
-    rm -v $argv
+    /usr/bin/rm -v $argv
 end
