@@ -35,7 +35,7 @@ function fish_prompt
     if git_is_repo
         set_color $fish_color_cwd
         # Git branch name
-        echo -n -s (git rev-parse --abbrev-ref HEAD) " "
+        echo -n -s (git symbolic-ref --short HEAD) " "
         set_color normal
         git_indicator
     end
@@ -53,7 +53,7 @@ function git_is_repo
 end
 
 function git_indicator
-    # Check if git working group is dirty
+    # Check if git working tree is dirty
     if git diff --quiet
         set -l commit_count (git rev-list --count --left-right "@{upstream}...HEAD" ^/dev/null)
 
