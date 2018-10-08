@@ -5,5 +5,8 @@
 [core]
   editor = emacsclient -c
 [alias]
+  cache = diff --cached
+  empty = commit -m '' --allow-empty-message
+  last = diff HEAD^1 HEAD
 [credential]
   helper = cache --timeout=3600
