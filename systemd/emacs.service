@@ -6,6 +6,7 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 Type=simple
 ExecStart=/usr/bin/emacs --fg-daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+ExecReload=/usr/bin/emacsclient --eval "(doom/reload)"
 Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 # fcitx
 Environment=GTK_IM_MODULE=fcitx
