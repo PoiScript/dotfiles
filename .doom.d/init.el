@@ -1,24 +1,4 @@
-;; -*- lexical-binding: t; -*-
-;;; ~/.doom.d/init.el
-
-(setq package-archives
-      '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-        ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-        ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-(setq display-line-numbers-type 'relative)
-(setq doom-themes-enable-bold nil)
-
-(setq doom-font (font-spec :family "Fira Code" :size 22))
-
-(defun window-system-setup (&optional frame)
-  (with-selected-frame (or frame (selected-frame))
-    (when window-system
-      (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Noto Sans CJK JP" :size 19))
-      (set-fontset-font t 'han (font-spec :family "Noto Sans CJK SC" :size 19)))))
-
-(add-hook 'after-make-frame-functions 'window-system-setup)
-
-(window-system-setup)
+;;; ~/.doom.d/init.el -*- lexical-binding: t; -*-
 
 (doom! :feature
       ;debugger          ; FIXME stepping through code, to help you add bugs
@@ -28,11 +8,11 @@
       ;(lookup           ; helps you navigate your code and documentation
       ; +devdocs         ; ...on devdocs.io online
       ; +docsets)        ; ...or in Dash docsets locally
-       snippets          ; my elves. They type so I don't have to
+      ;snippets          ; my elves. They type so I don't have to
        spellcheck        ; tasing you for misspelling mispelling
        (syntax-checker   ; tasing you for every semicolon you forget
         +childframe)     ; use childframes for error popups (Emacs 26+ only)
-       workspaces        ; tab emulation, persistence & separate workspaces
+      ;workspaces        ; tab emulation, persistence & separate workspaces
 
        :completion
        (company          ; the ultimate code completion backend
@@ -47,7 +27,7 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-modeline     ; a snazzy Atom-inspired mode-line
-       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+      ;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        evil-goggles      ; display visual hints when editing in evil
        fci               ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
@@ -58,7 +38,7 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-      ;(pretty-code      ; replace bits of code with pretty symbols
+      ;pretty-code       ; replace bits of code with pretty symbols
       ; +fira)
       ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
       ;unicode           ; extended unicode support for various languages
@@ -73,7 +53,10 @@
        rotate-text       ; cycle region at point between text candidates
 
        :emacs
-       dired             ; making dired pretty [functional]
+       (dired            ; making dired pretty [functional]
+         +ranger         ; bringing the goodness of ranger to dired
+         +icons          ; colorful icons for dired-mode
+        )
        ediff             ; comparing files in Emacs
        electric          ; smarter, keyword-based electric-indent
       ;eshell            ; a consistent, cross-platform shell (WIP)
@@ -124,11 +107,12 @@
       ;nix               ; I hereby declare "nix geht mehr!"
       ;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
-        +attach          ; custom attachment system
-        +babel           ; running code in org
+       ;+attach          ; custom attachment system
+       ;+babel           ; running code in org
         +capture         ; org-capture in and outside of Emacs
-        +export          ; Exporting org to whatever you want
-        +present)        ; Emacs for presentations
+       ;+export          ; Exporting org to whatever you want
+       ;+present         ; Emacs for presentations
+       )
       ;perl              ; write code no one else can comprehend
       ;php               ; perl's insecure younger brother
       ;plantuml          ; diagrams for confusing people more
@@ -151,7 +135,7 @@
        :app
       ;(email +gmail)    ; emacs as an email client
       ;irc               ; how neckbeards socialize
-      ;(rss +org)        ; emacs as an RSS reader
+       rss               ; emacs as an RSS reader
       ;twitter           ; twitter client https://twitter.com/vnought
       ;(write            ; emacs as a word processor (latex + org + markdown)
       ; +wordnut         ; wordnet (wn) search
@@ -164,11 +148,10 @@
        :config
        ;; For literate config users. This will tangle+compile a config.org
        ;; literate config in your `doom-private-dir' whenever it changes.
-      ;literate
+       literate
 
        ;; The default module set reasonable defaults for Emacs. It also provides
        ;; a Spacemacs-inspired keybinding scheme, a custom yasnippet library,
        ;; and additional ex commands for evil-mode. Use it as a reference for
        ;; your own modules.
        (default +bindings +snippets +evil-commands))
-
