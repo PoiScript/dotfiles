@@ -1,6 +1,8 @@
 * Emacs Daemon
 
 #+BEGIN_SRC conf :tangle ~/.config/systemd/user/emacs.service :comments link
+#  ~/.config/systemd/user/emacs.service
+
 [Unit]
 Description=Emacs text editor daemon
 Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
@@ -21,6 +23,8 @@ Environment=XMODIFIERS="@im=fcitx5"
 [Install]
 WantedBy=default.target
 #+END_SRC
+
+To enable and start this unit, run
 
 #+BEGIN_SRC bash
 systemctl --user enable emacs

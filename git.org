@@ -1,7 +1,6 @@
-* ~.gitconfig~
-
 #+BEGIN_SRC gitconfig :tangle ~/.gitconfig :comments link
-# This is Git's per-user configuration file.
+# ~/.gitconfig
+
 [user]
   name = PoiScript
   email = poiscript@gmail.com
