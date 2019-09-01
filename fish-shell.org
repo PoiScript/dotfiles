@@ -1,0 +1,32 @@
+* ~.config.fish~
+
+#+BEGIN_SRC fish :tangle  ~/.config/fish/config.fish :comments link
+set -x CHROME_BIN /usr/bin/google-chrome-unstable
+set -x EDITOR emacs
+set -x NODE_PATH ~/.config/yarn/global/node_modules/
+set -x RUSTUP_DIST_SERVER https://mirrors.tuna.tsinghua.edu.cn/rustup
+set -x RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
+#+END_SRC
+
+* Functions
+
+#+BEGIN_SRC fish :tangle ~/.config/fish/functions/fish_prompt.fish :comments link
+export STARSHIP_SHELL="fish"
+
+function fish_prompt
+    set -l exit_code $status
+    set -l cmd_duration (math --scale=0 "$CMD_DURATION / 1000")
+    set -l jobs_count (count (jobs -p))
+    starship prompt -s $exit_code -d $cmd_duration -j $jobs_count
+end
+#+END_SRC
+
+#+BEGIN_SRC fish :tangle ~/.config/fish/functions/cat.fish :comments link
+function cat
+    if command -sq bat
+        command bat $argv
+    else
+        command cat --color=auto $argv
+    end
+end
+#+END_SRC

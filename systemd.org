@@ -1,0 +1,28 @@
+* Emacs Daemon
+
+#+BEGIN_SRC conf :tangle ~/.config/systemd/user/emacs.service :comments link
+[Unit]
+Description=Emacs text editor daemon
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/emacs --fg-daemon
+ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+ExecReload=/usr/bin/emacsclient --eval "(doom/reload)"
+Restart=on-failure
+
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+# fcitx
+Environment=GTK_IM_MODULE=fcitx5
+Environment=QT_IM_MODULE=fcitx5
+Environment=XMODIFIERS="@im=fcitx5"
+
+[Install]
+WantedBy=default.target
+#+END_SRC
+
+#+BEGIN_SRC bash
+systemctl --user enable emacs
+systemctl --user start emacs
+#+END_SRC

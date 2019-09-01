@@ -1,0 +1,19 @@
+* ~.gitconfig~
+
+#+BEGIN_SRC gitconfig :tangle ~/.gitconfig :comments link
+# This is Git's per-user configuration file.
+[user]
+  name = PoiScript
+  email = poiscript@gmail.com
+
+[core]
+  editor = emacs
+
+[alias]
+  cache = diff --cached
+  empty = commit -m '' --allow-empty-message
+  last = diff HEAD^1 HEAD
+
+[credential]
+  helper = cache --timeout=3600
+#+END_SRC
