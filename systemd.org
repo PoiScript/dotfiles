@@ -1,7 +1,7 @@
 * Emacs Daemon
 
 #+BEGIN_SRC conf :tangle ~/.config/systemd/user/emacs.service :comments link
-#  ~/.config/systemd/user/emacs.service
+# ~/.config/systemd/user/emacs.service
 
 [Unit]
 Description=Emacs text editor daemon
