@@ -1,6 +1,6 @@
-#+BEGIN_SRC conf :tangle ~/.tmux.conf :comments link
-# ~/.tmux.conf
+=~/.tmux.conf=:
 
+#+BEGIN_SRC conf :tangle ~/.tmux.conf :comments link
 set -g default-terminal "xterm-256color"
 set -g terminal-overrides ',xterm-24bit:Tc'
 set -g mouse on

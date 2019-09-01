@@ -1,0 +1,50 @@
+=~/.config/fontconfig/fonts.conf=:
+
+#+BEGIN_SRC html :tangle ~/.config/fontconfig/fonts.conf :comments link
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
+<fontconfig>
+  <match target="pattern">
+    <test qual="any" name="family">
+      <string>monospace</string>
+    </test>
+    <edit binding="strong" mode="prepend" name="family">
+      <string>Sarasa Mono CL</string>
+      <string>Sarasa Mono SC</string>
+      <string>Sarasa Mono TC</string>
+      <string>Sarasa Mono HC</string>
+      <string>Sarasa Mono J</string>
+      <string>Noto Color Emoji</string>
+    </edit>
+  </match>
+  <match target="pattern">
+    <test qual="any" name="family">
+      <string>sans-serif</string>
+    </test>
+    <edit binding="strong" mode="prepend" name="family">
+      <string>Sarasa UI CL</string>
+      <string>Sarasa UI SC</string>
+      <string>Sarasa UI TC</string>
+      <string>Sarasa UI HC</string>
+      <string>Sarasa UI J</string>
+      <string>Noto Color Emoji</string>
+    </edit>
+  </match>
+  <dir>~/.fonts</dir>
+  <match target="font">
+    <edit mode="assign" name="hinting">
+      <bool>false</bool>
+    </edit>
+  </match>
+  <match target="font">
+    <edit mode="assign" name="hintstyle">
+      <const>hintnone</const>
+    </edit>
+  </match>
+  <match target="font">
+    <edit mode="assign" name="antialias">
+      <bool>true</bool>
+    </edit>
+  </match>
+</fontconfig>
+#+END_SRC

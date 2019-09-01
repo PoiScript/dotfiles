@@ -1,8 +1,8 @@
 * Emacs Daemon
 
-#+BEGIN_SRC conf :tangle ~/.config/systemd/user/emacs.service :comments link
-# ~/.config/systemd/user/emacs.service
+=~/.config/systemd/user/emacs.service=:
 
+#+BEGIN_SRC conf :tangle ~/.config/systemd/user/emacs.service :comments link
 [Unit]
 Description=Emacs text editor daemon
 Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/

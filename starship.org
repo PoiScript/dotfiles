@@ -1,0 +1,24 @@
+=~/.config/starship.toml=:
+
+#+BEGIN_SRC toml :tangle ~/.config/starship.toml :comments link
+[character]
+symbol = "~>"
+
+[package]
+disabled = true
+
+[rust]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[ruby]
+disabled = true
+
+[golang]
+disabled = true
+
+[battery]
+disabled = true
+#+END_SRC

@@ -1,6 +1,6 @@
-#+BEGIN_SRC fish :tangle  ~/.config/fish/config.fish :comments link
-# ~/.config/fish/config.fish
+=~/.config/fish/config.fish=:
 
+#+BEGIN_SRC fish :tangle  ~/.config/fish/config.fish :comments link
 set -x CHROME_BIN /usr/bin/google-chrome-unstable
 set -x EDITOR emacs
 set -x NODE_PATH ~/.config/yarn/global/node_modules/
@@ -10,9 +10,9 @@ set -x RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
 
 * Functions
 
-#+BEGIN_SRC fish :tangle ~/.config/fish/functions/fish_prompt.fish :comments link
-# ~/.config/fish/functions/fish_prompt.fish
+=~/.config/fish/functions/fish_prompt.fish=:
 
+#+BEGIN_SRC fish :tangle ~/.config/fish/functions/fish_prompt.fish :comments link
 export STARSHIP_SHELL="fish"
 
 function fish_prompt
@@ -23,9 +23,9 @@ function fish_prompt
 end
 #+END_SRC
 
-#+BEGIN_SRC fish :tangle ~/.config/fish/functions/cat.fish :comments link
-# ~/.config/fish/functions/cat.fish
+=~/.config/fish/functions/cat.fish=:
 
+#+BEGIN_SRC fish :tangle ~/.config/fish/functions/cat.fish :comments link
 function cat
     if command -sq bat
         command bat $argv

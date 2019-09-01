@@ -1,6 +1,6 @@
-#+BEGIN_SRC gitconfig :tangle ~/.gitconfig :comments link
-# ~/.gitconfig
+=~/.gitconfig=:
 
+#+BEGIN_SRC gitconfig :tangle ~/.gitconfig :comments link
 [user]
   name = PoiScript
   email = poiscript@gmail.com
