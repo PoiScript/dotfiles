@@ -16,4 +16,6 @@ Use it at your own risk. :)
 
 - [[./fish-shell.org][Fish Shell]]
 
+- [[./konsole.org][Konsole / Yakuake]]
+
 - [[./tmux.org][Tmux]]
