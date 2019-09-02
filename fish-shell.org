@@ -1,7 +1,8 @@
 =~/.config/fish/config.fish=:
 
-#+BEGIN_SRC fish :tangle  ~/.config/fish/config.fish :comments link
+#+BEGIN_SRC fish :tangle ~/.config/fish/config.fish :mkdirp yes :comments link
 set -x CHROME_BIN /usr/bin/google-chrome-unstable
+set -x DOOMDIR ~/dotfiles/doom-emacs/
 set -x EDITOR emacs
 set -x NODE_PATH ~/.config/yarn/global/node_modules/
 set -x RUSTUP_DIST_SERVER https://mirrors.tuna.tsinghua.edu.cn/rustup
@@ -12,7 +13,7 @@ set -x RUST_SRC_PATH (rustc --print sysroot)"/lib/rustlib/src/rust/src"
 
 =~/.config/fish/functions/fish_prompt.fish=:
 
-#+BEGIN_SRC fish :tangle ~/.config/fish/functions/fish_prompt.fish :comments link
+#+BEGIN_SRC fish :tangle ~/.config/fish/functions/fish_prompt.fish :mkdirp yes :comments link
 export STARSHIP_SHELL="fish"
 
 function fish_prompt
@@ -25,7 +26,7 @@ end
 
 =~/.config/fish/functions/cat.fish=:
 
-#+BEGIN_SRC fish :tangle ~/.config/fish/functions/cat.fish :comments link
+#+BEGIN_SRC fish :tangle ~/.config/fish/functions/cat.fish :mkdirp yes :comments link
 function cat
     if command -sq bat
         command bat $argv

@@ -6,7 +6,7 @@ cargo install starship
 
 =~/.config/starship.toml=:
 
-#+BEGIN_SRC toml :tangle ~/.config/starship.toml :comments link
+#+BEGIN_SRC toml :tangle ~/.config/starship.toml :mkdirp yes :comments link
 [character]
 symbol = "~>"
 
