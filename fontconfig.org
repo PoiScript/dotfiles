@@ -1,6 +1,6 @@
 =~/.config/fontconfig/fonts.conf=:
 
-#+BEGIN_SRC html :tangle ~/.config/fontconfig/fonts.conf :comments link
+#+BEGIN_SRC html :tangle ~/.config/fontconfig/fonts.conf
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
 <fontconfig>

@@ -1,8 +1,14 @@
+Install ~xclip~ to access X11 clipboard.
+
+#+BEGIN_SRC fish
+sudo pacman -Syu xclip
+#+END_SRC
+
 =~/.tmux.conf=:
 
 #+BEGIN_SRC conf :tangle ~/.tmux.conf :comments link
 set -g default-terminal "xterm-256color"
-set -g terminal-overrides ',xterm-24bit:Tc'
+set -g terminal-overrides ",xterm-24bit:Tc"
 set -g mouse on
 set -g base-index 1
 set -sg escape-time 0
@@ -15,7 +21,7 @@ unbind C-b
 unbind '"'
 unbind %
 unbind p
-bind e clear-history \; display-message 'Erased history.'
+bind e clear-history \; display-message "Erased history."
 bind h resize-pane -L
 bind j resize-pane -D
 bind k resize-pane -U
@@ -29,8 +35,8 @@ bind -n M-k select-pane -U
 bind -n M-l select-pane -R
 bind -n M-n next-window
 bind -n M-p previous-window
-bind -n M-q confirm-before -p 'Kill window? (y or n)' kill-window
-bind -n M-w confirm-before -p 'Kill pane? (y or n)' kill-pane
+bind -n M-q confirm-before -p "Kill window? (y or n)" kill-window
+bind -n M-w confirm-before -p "Kill pane? (y or n)" kill-pane
 bind -n M-y copy-mode
 bind -T copy-mode-vi WheelUpPane send -X scroll-up
 bind -T copy-mode-vi WheelDownPane send -X scroll-down
@@ -38,33 +44,33 @@ bind -T copy-mode-vi WheelDownPane send -X scroll-down
 # Copy and paste
 setw -g mode-keys vi
 bind -T copy-mode-vi v send-keys -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -i -se c > /dev/null' \; display-message 'Copied to clipboard.'
-bind p run 'xclip -o -se c | tmux load-buffer - ; tmux paste-buffer'
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -se c > /dev/null" \; display-message "Copied to clipboard."
+bind p run "xclip -o -se c | tmux load-buffer - ; tmux paste-buffer"
 
 # Status bar colors
-set -g status-style 'fg=default,bg=default'
+set -g status-style "fg=default,bg=default"
 
 # Left status bar
-set -g status-left '#{?client_prefix,#[bg=colour31],#[bg=colour61]} #S '
+set -g status-left "#{?client_prefix,#[bg=colour31],#[bg=colour61]} #S "
 set -g status-left-style fg=colour255
 
 # Right status bar
-set -g status-right '#[bg=colour234] #{session_attached} #[bg=colour236] #(cut -d " " -f 1-4 /proc/loadavg) #[fg=colour255,bg=colour61,bold] %H:%M '
+set -g status-right "#[bg=colour234] #{session_attached} #[bg=colour236] #(cut -d ' ' -f 1-4 /proc/loadavg) #[fg=colour255,bg=colour61,bold] %H:%M "
 set -g status-right-style fg=colour249
 
 # Window status
-set -g window-status-format '#[bg=colour236] #I #[bg=colour234] #W '
+set -g window-status-format "#[bg=colour236] #I #[bg=colour234] #W "
 set -g window-status-style fg=colour249
 
 # Selected window status
-set -g window-status-current-format '#[bg=colour236] #I #[bg=colour234] #W '
+set -g window-status-current-format "#[bg=colour236] #I #[bg=colour234] #W "
 set -g window-status-current-style fg=colour255,bold
 
 # Window activity status
 set -g window-status-activity-style fg=colour245
 
 # Window separator
-set -g window-status-separator ''
+set -g window-status-separator ""
 
 # Window status alignment
 set -g status-justify left

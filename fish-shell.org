@@ -34,3 +34,12 @@ function cat
     end
 end
 #+END_SRC
+
+* Completions
+
+#+BEGIN_SRC fish
+mkdir -p ~/.config/fish/completions
+
+# rustup
+rustup completions fish > ~/.config/fish/completions/rustup.fish
+#+END_SRC

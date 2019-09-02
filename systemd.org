@@ -26,7 +26,7 @@ WantedBy=default.target
 
 To enable and start this unit, run
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC fish
 systemctl --user enable emacs
 systemctl --user start emacs
 #+END_SRC

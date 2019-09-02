@@ -1,3 +1,9 @@
+Install starship:
+
+#+BEGIN_SRC fish
+cargo install starship
+#+END_SRC
+
 =~/.config/starship.toml=:
 
 #+BEGIN_SRC toml :tangle ~/.config/starship.toml :comments link
