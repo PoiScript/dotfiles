@@ -29,7 +29,7 @@ end
 #+BEGIN_SRC fish :tangle ~/.config/fish/functions/cat.fish :mkdirp yes :comments link
 function cat
     if command -sq bat
-        command bat $argv
+        command bat --theme OneHalfDark $argv
     else
         command cat --color=auto $argv
     end

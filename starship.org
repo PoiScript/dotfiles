@@ -2,29 +2,27 @@ Install starship:
 
 #+BEGIN_SRC fish
 cargo install starship
+strip ~/.cargo/bin/starship
 #+END_SRC
 
 =~/.config/starship.toml=:
 
 #+BEGIN_SRC toml :tangle ~/.config/starship.toml :mkdirp yes :comments link
+prompt_order = [
+    "username",
+    "directory",
+    "git_branch",
+    "git_status",
+    "cmd_duration",
+    "line_break",
+    "jobs",
+    "character",
+]
+
+[directory]
+fish_style_pwd_dir_length = 1
+truncate_to_repo = true
+
 [character]
 symbol = "~>"
-
-[package]
-disabled = true
-
-[rust]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[ruby]
-disabled = true
-
-[golang]
-disabled = true
-
-[battery]
-disabled = true
 #+END_SRC
