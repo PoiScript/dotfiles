@@ -1,126 +1,66 @@
 * Table of Contents :TOC@2@gh:
 - [[#general][General]]
-  - [[#ui][UI]]
-  - [[#misc][Misc]]
 - [[#packages][Packages]]
-  - [[#elfeed][Elfeed]]
+  - [[#css][CSS]]
   - [[#fcitx][Fcitx]]
   - [[#org][Org]]
 - [[#keybindings][Keybindings]]
   - [[#org-1][Org]]
 
 * General
-** UI
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (setq-default
- display-line-numbers-type 'relative
- doom-big-font (font-spec :family "Sarasa Mono SC" :size 19)
- doom-font (font-spec :family "Sarasa Mono SC" :size 20)
- doom-themes-enable-bold nil)
+ doom-font                    (font-spec :family "Sarasa Mono CL" :size 20)
+ doom-big-font                (font-spec :family "Sarasa Mono CL" :size 19)
+ browse-url-browser-function  'browse-url-default-browser
+ confirm-kill-emacs           'y-or-n-p
+ doom-localleader-key         "m"
+ evil-escape-key-sequence     "jk"
+ user-full-name               "PoiScript"
+ user-mail-address            "poiscript@gmail.com")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (defun window-system-setup (&optional frame)
   (with-selected-frame (or frame (selected-frame))
     (when window-system
-      (set-fontset-font t 'kana (font-spec :family "Sarasa Mono J" :size 20))
-      (set-fontset-font t 'cjk-misc (font-spec :family "Sarasa Mono SC" :size 20))
-      (set-fontset-font t 'han (font-spec :family "Sarasa Mono SC" :size 20))
-      )))
+      (set-fontset-font t 'kana      (font-spec :family "Sarasa Mono J"  :size 20))
+      (set-fontset-font t 'cjk-misc  (font-spec :family "Sarasa Mono SC" :size 20))
+      (set-fontset-font t 'han       (font-spec :family "Sarasa Mono SC" :size 20)))))
 
 (add-hook! 'after-make-frame-functions 'window-system-setup)
 
-(window-system-setup (selected-frame))
-#+END_SRC
-
-** Misc
-
-#+BEGIN_SRC emacs-lisp :results silent output
-(setq-default
- browse-url-browser-function 'browse-url-default-browser
- confirm-kill-emacs 'y-or-n-p
- doom-localleader-key "m"
- evil-escape-key-sequence "jk"
- user-full-name    "PoiScript"
- user-mail-address "poiscript@gmail.com")
+(window-system-setup)
 #+END_SRC
 
 * Packages
-** Elfeed
-*** Config
+
+** CSS
 
 #+BEGIN_SRC emacs-lisp :results silent output
-  (after! elfeed
-    :config
-    (setq
-     rmh-elfeed-org-files '("~/.doom.d/config.org")
-     elfeed-search-filter "@2-week-ago -torrent"
-     elfeed-show-entry-switch
-     (lambda (buffer)
-       (with-current-buffer buffer
-         ;;   (setq buffer-read-only nil)
-         ;;   (goto-char (point-min))
-         ;;   (re-search-forward "\n\n")
-         ;;   (fill-individual-paragraphs (point) (point-max))
-         ;;   (setq buffer-read-only t)
-         (show-paren-mode 0))
-       (pop-to-buffer buffer))
-     elfeed-search-print-entry-function
-     (lambda (entry)
-       (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
-              (title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
-              (truncated-title (truncate-string-to-width title (- (window-width) 16) nil nil "…"))
-              (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
-              (feed (elfeed-entry-feed entry))
-              (feed-title (or (elfeed-meta feed :title) (elfeed-feed-title feed) ""))
-              (truncated-feed-title (truncate-string-to-width feed-title 10 nil ?\s "…")))
-         (insert (propertize date 'face 'elfeed-search-date-face) " ")
-         (insert (propertize truncated-feed-title 'face 'elfeed-search-feed-face 'help-echo feed-title) " ")
-         (insert (propertize truncated-title 'face title-faces 'help-echo title))))))
+(after! css-mode
+  :config
+  (setq css-fontify-colors nil))
 #+END_SRC
-
-*** Feeds :elfeed:
-**** News :news:
-***** https://acgdoge.net/feed/
-**** Blog :blog:
-***** http://pragmaticemacs.com/feed/ :emacs:
-***** https://blog.anp.lol/feed.xml :rust:
-***** https://blog.lilydjwg.me/feed/
-***** https://blog.nanpuyue.com/feed/
-***** https://blog.poi.cat/atom.xml
-***** [[https://blog.sukitsuki.com/atom.xml][TsukiBlog]]
-***** https://boats.gitlab.io/blog/index.xml :rust:
-***** https://feeds.feedburner.com/felixcat?format=xml
-***** https://fiveyellowmice.com/feed.xml
-***** https://kitchingroup.cheme.cmu.edu/blog/feed/index.xml :emacs:
-***** https://marwes.github.io/feed.xml :rust:
-***** https://neosmart.net/blog/ :rust:
-***** https://oremacs.com/atom.xml :emacs:
-***** https://quininer.github.io/rss.xml
-***** https://rustwasm.github.io/feed.xml :rust:
-***** https://this-week-in-rust.org/rss.xml :rust:
-***** https://typeblog.net/rss
-***** [[https://www.awwwards.com/blog/feed/][Awwwards]]
-**** Torrent :torrent:
-***** [[https://nyaa.si/?page=rss&c=2_1&f=0][NyaaLossless]]
-**** Webcomic :webcomic:
-***** [[http://sssscomic.com/ssss-feed.xml][SSSS]]
-***** [[https://xkcd.com/atom.xml][xkcd]]
 
 ** Fcitx
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (use-package! fcitx
   :config
-  )
+  (setq
+   fcitx-active-evil-states  '(insert emacs)
+   fcitx-remote-command      "fcitx5-remote"
+   fcitx-use-dbus            nil)
+  (fcitx-aggressive-setup))
 #+END_SRC
 
 ** Org
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (after! org
-  (flycheck-mode -1)
+  :config
   (setq
    ;; GTD
    org-agenda-files '("~/org/calendar.org")
@@ -150,6 +90,7 @@
        (org-add-planning-info nil nil 'closed)))))
 
 (after! 'ox-latex
+  :config
   (setq
    ;; LaTeX
    org-format-latex-options (plist-put org-format-latex-options :scale 1.5)
@@ -207,63 +148,53 @@
 * Keybindings
 
 #+BEGIN_SRC emacs-lisp :results silent output
-(global-set-key (kbd "<mouse-6>") 'scroll-right)
-(global-set-key (kbd "<mouse-7>") 'scroll-left)
-(global-set-key (kbd "<mouse-8>") 'next-buffer)
-(global-set-key (kbd "<mouse-9>") 'previous-buffer)
-
 (map!
  ;; window navigation
- :n  "M-h"   #'evil-window-left
- :n  "M-j"   #'evil-window-down
- :n  "M-k"   #'evil-window-up
- :n  "M-l"   #'evil-window-right
- :ni "M-n"   #'next-buffer
- :ni "M-p"   #'previous-buffer
- :ni "M-s"   #'save-buffer
- :ni "C-S-j" #'move-line-down
- :ni "C-S-k" #'move-line-up
- :ni "C-M-j" #'mc/mark-next-lines
- :ni "C-M-k" #'mc/mark-previous-lines
+ "M-h"      #'evil-window-left
+ "M-j"      #'evil-window-down
+ "M-k"      #'evil-window-up
+ "M-l"      #'evil-window-right
+ "M-s"      #'save-buffer
+ [mouse-6]  #'scroll-right
+ [mouse-7]  #'scroll-left
+ [mouse-8]  #'next-buffer
+ [mouse-9]  #'previous-buffer
+
+ :nv "C-S-j" #'drag-stuff-down
+ :nv "C-S-k" #'drag-stuff-up
+ :nv "C-S-h" #'drag-stuff-left
+ :nv "C-S-l" #'drag-stuff-right
+
+ :nv "C-M-j" #'evil-mc-make-cursor-move-next-line
+ :nv "C-M-k" #'evil-mc-make-cursor-move-prev-line
+
  ;; emacs motion
  :nvi "C-e"   #'end-of-line
  :nvi "C-a"   #'beginning-of-line
  :nvi "C-n"   #'next-line
  :nvi "C-p"   #'previous-line
- :nvi "C-f"   #'forward-char
- :nvi "C-b"   #'backward-char
 
  :leader
- :desc "M-x"                   :nv "SPC" #'execute-extended-command
- (:desc "file" :prefix "f"
-   :desc "find file"           :n  "f" #'projectile-find-file)
- (:desc "jump to" :prefix "j"
-   :desc "function at point"   :n  "F" #'find-function-at-point
-   :desc "function"            :n  "f" #'find-function
-   :desc "variable at point"   :n  "V" #'find-variable-at-point
-   :desc "variable"            :n  "v" #'find-variable)
- (:desc "open" :prefix "o"
-   :desc "elfeed"              :n  "r" #'elfeed
-   :desc "calendar file"       :n  "c" (λ! (find-file "~/org/calendar.org"))
-   :desc "notes file"          :n  "n" (λ! (find-file +org-capture-notes-file))
-   :desc "todo file"           :n  "t" (λ! (find-file +org-capture-todo-file)))
- (:desc "lines" :prefix "l"
-   :desc "flush lines"         :nv "f" #'flush-lines
-   :desc "keep lines"          :nv "k" #'keep-lines
-   :desc "remove duplicates"   :nv "u" #'delete-duplicate-lines
-   :desc "sort lines"          :nv "s" #'sort-lines)
- (:desc "buffer" :prefix "b"
-   :desc "bury buffer"         :n  "z" #'bury-buffer
-   :desc "create empty buffer" :n  "c" #'evil-buffer-new
-   :desc "kill buffer"         :n  "k" #'kill-this-buffer
-   :desc "kill other buffers"  :n  "o" #'doom/kill-other-buffers
-   :desc "next buffer"         :n  "." #'next-buffer
-   :desc "previous buffer"     :n  "," #'previous-buffer
-   :desc "sudo edit this file" :n  "w" #'doom/sudo-this-file
-   :desc "switch to scratch"   :n  "s" #'doom/switch-to-scratch-buffer
-   :desc "toggle narrowing"    :nv "-" #'doom/clone-and-narrow-buffer)
- (:desc "toggle" :prefix "t"
-   :desc "frame maximized"     :n  "m" #'toggle-frame-maximized))
+ (:prefix-map ("o" . "open")
+   "c" (λ! (find-file "~/org/calendar.org"))
+   "n" (λ! (find-file +org-capture-notes-file))
+   "t" (λ! (find-file +org-capture-todo-file)))
+
+ (:prefix-map ("b" . "buffer")
+   "w" #'doom/sudo-this-file
+   "s" #'doom/switch-to-scratch-buffer)
+
+ (:prefix-map ("t" . "toggle")
+   "m" #'toggle-frame-maximized))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :results silent output
+(map!
+ :prefix "gl"
+ :v "f" #'flush-lines
+ :v "k" #'keep-lines
+ :v "s" #'sort-lines
+ :v "u" #'delete-duplicate-lines)
 #+END_SRC
 
 ** Org
@@ -272,34 +203,36 @@
 (map!
  :after org
  :map evil-org-mode-map
- :n "M-h" #'evil-window-left
- :n "M-l" #'evil-window-right
- :n "M-j" #'evil-window-down
- :n "M-k" #'evil-window-up
+ "M-h" #'evil-window-left
+ "M-l" #'evil-window-right
+ "M-j" #'evil-window-down
+ "M-k" #'evil-window-up
 
  :localleader
- :n "'"   #'org-edit-special
- :n ","   #'org-priority
- :n "."   #'org-time-stamp
- :n "RET" #'org-ctrl-c-ret
- :n "S"   #'org-sort
- :n "d"   #'org-deadline
- :n "e"   #'org-export-dispatch
- :n "i"   #'org-toggle-inline-images
- :n "l"   #'org-toggle-link-display
- :n "m"   #'org-ctrl-c-ctrl-c
- :n "p"   #'org-toggle-latex-fragment
- :n "s"   #'org-schedule
- :n "t"   #'org-todo
- (:desc "narrow" :prefix "n"
-   :n "b" #'org-narrow-to-block
-   :n "e" #'org-narrow-to-element
-   :n "s" #'org-narrow-to-subtree)
- (:desc "clock" :prefix "c"
-   :n "G" (λ! (org-clock-goto 'select))
-   :n "c" #'org-clock-cancel
-   :n "d" #'org-clock-display
-   :n "e" #'org-clock-out
-   :n "g" #'org-clock-goto
-   :n "s" #'org-clock-in))
+ "'"   #'org-edit-special
+ ","   #'org-priority
+ "."   #'org-time-stamp
+ "RET" #'org-ctrl-c-ret
+ "S"   #'org-sort
+ "d"   #'org-deadline
+ "e"   #'org-export-dispatch
+ "i"   #'org-toggle-inline-images
+ "l"   #'org-toggle-link-display
+ "m"   #'org-ctrl-c-ctrl-c
+ "p"   #'org-toggle-latex-fragment
+ "s"   #'org-schedule
+ "t"   #'org-todo
+
+ (:prefix "n"
+   "b" #'org-narrow-to-block
+   "e" #'org-narrow-to-element
+   "s" #'org-narrow-to-subtree)
+
+ (:prefix "c"
+   "G" (λ! (org-clock-goto 'select))
+   "c" #'org-clock-cancel
+   "d" #'org-clock-display
+   "e" #'org-clock-out
+   "g" #'org-clock-goto
+   "s" #'org-clock-in))
 #+END_SRC
