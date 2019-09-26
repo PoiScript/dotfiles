@@ -1,8 +1,10 @@
 * Table of Contents :TOC@2@gh:
 - [[#general][General]]
 - [[#packages][Packages]]
+  - [[#cdlatex][CDLaTeX]]
   - [[#css][CSS]]
   - [[#fcitx][Fcitx]]
+  - [[#modeline][Modeline]]
   - [[#org][Org]]
 - [[#keybindings][Keybindings]]
   - [[#org-1][Org]]
@@ -36,6 +38,36 @@
 
 * Packages
 
+** CDLaTeX
+
+#+BEGIN_SRC emacs-lisp :results silent output
+(use-package! cdlatex
+  :after (:any org-mode LaTeX-mode)
+  :hook
+  ((LaTeX-mode . turn-on-cdlatex)
+   (org-mode . turn-on-org-cdlatex))
+  :config
+  (setq
+   cdlatex-command-alist
+   '(("lim"        "Insert \\lim_{}\\limits_{}"
+      "\\lim\\limits_{?}"  cdlatex-position-cursor nil nil t)
+     ("sin"        "Insert \\sin"
+      "\\sin"              nil                     nil t   t)
+     ("cos"        "Insert \\cos"
+      "\\cos"              nil                     nil t   t)
+     ("under"      "Insert \\underset{}{}"
+      "\\underset{?}{}"    cdlatex-position-cursor nil nil t)
+     ("prod"       "Insert \\prod\\limits_{}"
+      "\\prod\\limits_{?}" cdlatex-position-cursor nil nil t)
+     ("txt"        "Insert \\text{}"
+      "\\text{?}"          cdlatex-position-cursor nil nil t)
+     ("iintl"      "Insert \\iint\\limits_{}"
+      "\\iint\\limits_{?}" cdlatex-position-cursor nil nil t))
+   cdlatex-env-alist
+   '(("cases"   "\\begin{cases}\n?\n\\end{cases}\n"     nil)
+     ("aligned" "\\begin{aligned}\n?\n\\end{aligned}\n" nil))))
+#+END_SRC
+
 ** CSS
 
 #+BEGIN_SRC emacs-lisp :results silent output
@@ -56,30 +88,41 @@
   (fcitx-aggressive-setup))
 #+END_SRC
 
+** Modeline
+
+#+BEGIN_SRC emacs-lisp :results silent output
+(after! doom-modeline
+  :config
+  (setq
+   doom-modeline-buffer-file-name-style    'truncate-with-project
+   doom-modeline-buffer-modification-icon  nil
+   doom-modeline-env-version               nil)
+  (doom-modeline-def-modeline 'main
+    '(bar matches buffer-info remote-host buffer-position selection-info)
+    '(objed-state misc-info persp-name buffer-encoding lsp major-mode process vcs checker)))
+#+END_SRC
+
 ** Org
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (after! org
   :config
   (setq
-   ;; GTD
-   org-agenda-files '("~/org/calendar.org")
+   org-bullets-bullet-list '("◉" "○")
+   org-agenda-files  '("~/org/calendar.org")
    org-todo-keyword-faces
    '(("CANC" . "indian red")
      ("EVNT" . "orchid")
      ("MIGR" . "rosy brown")
      ("TODO" . "#98be65"))
-   ;; Capture
-   +org-capture-notes-file "~/org/notes.org"
-   +org-capture-todo-file "~/org/todo.org"
-   org-highlight-latex-and-related '(latex)
+   org-highlight-latex-and-related  '(latex)
    org-capture-templates
    '(("t" "Personal todo" entry
-      (file+headline +org-capture-todo-file "Inbox")
+      (file+headline "~/org/todo.org"  "Inbox")
       "\n* TODO %?\n:PROPERTIES:\nCREATED: %T\n:END:\n\n%i\n\n"
       :prepend t :kill-buffer t :empty-lines 1)
      ("n" "Personal notes" entry
-      (file+headline +org-capture-notes-file "Inbox")
+      (file+headline "~/org/notes.org" "Inbox")
       "\n* %u %?\n%i\n%a\n\n"
       :prepend t :kill-buffer t :empty-lines 1)))
   (advice-add
@@ -88,11 +131,12 @@
      (if (string= (org-get-todo-state) "DONE")
          (org-add-planning-info 'closed (org-current-effective-time))
        (org-add-planning-info nil nil 'closed)))))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp :results silent output
 (after! 'ox-latex
   :config
   (setq
-   ;; LaTeX
    org-format-latex-options (plist-put org-format-latex-options :scale 1.5)
    org-latex-create-formula-image-program 'dvisvgm
    org-latex-packages-alist '(("" "minted"))
@@ -115,34 +159,6 @@
    org-latex-pdf-process
    '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
      "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :results silent output
-(use-package! cdlatex
-  :after (:any org-mode LaTeX-mode)
-  :hook
-  ((LaTeX-mode . turn-on-cdlatex)
-   (org-mode . turn-on-org-cdlatex))
-  :config
-  (setq
-   cdlatex-command-alist
-   '(("lim"        "Insert \\lim_{}\\limits_{}"
-      "\\lim\\limits_{?}" cdlatex-position-cursor nil nil t)
-     ("sin"        "Insert \\sin"
-      "\\sin"       nil nil t t)
-     ("cos"        "Insert \\cos"
-      "\\cos"       nil nil t t)
-     ("under"      "Insert \\underset{}{}"
-      "\\underset{?}{}" cdlatex-position-cursor nil nil t)
-     ("prod"       "Insert \\prod\\limits_{}"
-      "\\prod\\limits_{?}" cdlatex-position-cursor nil nil t)
-     ("txt"        "Insert \\text{}"
-      "\\text{?}" cdlatex-position-cursor nil nil t)
-     ("iintl"      "Insert \\iint\\limits_{}"
-      "\\iint\\limits_{?}" cdlatex-position-cursor nil nil t))
-   cdlatex-env-alist
-   '(("cases" "\\begin{cases}\n?\n\\end{cases}\n" nil)
-     ("aligned" "\\begin{aligned}\n?\n\\end{aligned}\n" nil))))
 #+END_SRC
 
 * Keybindings
