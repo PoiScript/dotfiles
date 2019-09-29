@@ -1,16 +1,25 @@
-* Dotfiles
+* About
 
+To apply a specific configuration, tangling the corresponding org file:
+
+#+BEGIN_SRC sh
+$ emacs -Q --batch --script tangle.el cargo.org
+#+END_SRC
+
+* Table of Contents :TOC:QUOTE:
 #+BEGIN_QUOTE
-Use it at your own risk. :)
+- [[#about][About]]
+- [[#emacs][Emacs]]
+- [[#terminal][Terminal]]
 #+END_QUOTE
 
-** Emacs
+* Emacs
 
 [[file:images/emacs.png]]
 
 - [[./doom-emacs/][Doom Emacs]]
 
-** Terminal
+* Terminal
 
 [[file:images/terminal.png]]
 
