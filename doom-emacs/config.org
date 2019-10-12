@@ -3,10 +3,12 @@
 - [[#packages][Packages]]
   - [[#cdlatex][CDLaTeX]]
   - [[#css][CSS]]
+  - [[#edit-indirect][Edit-indirect]]
   - [[#fcitx][Fcitx]]
   - [[#modeline][Modeline]]
   - [[#org][Org]]
 - [[#keybindings][Keybindings]]
+  - [[#lsp][LSP]]
   - [[#org-1][Org]]
 
 * General
@@ -37,8 +39,11 @@
 #+END_SRC
 
 * Packages
-
 ** CDLaTeX
+
+#+BEGIN_SRC emacs-lisp :results silent output
+(use-package! auctex :defer t)
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (use-package! cdlatex
@@ -74,6 +79,12 @@
 (after! css-mode
   :config
   (setq css-fontify-colors nil))
+#+END_SRC
+
+** Edit-indirect
+
+#+BEGIN_SRC emacs-lisp :results silent output
+(use-package! edit-indirect :defer t)
 #+END_SRC
 
 ** Fcitx
@@ -157,6 +168,7 @@
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (use-package! org-drill
+  :defer t
   :config
   (add-to-list 'org-modules 'org-drill)
   (setq org-drill-left-cloze-delimiter "<["
@@ -215,16 +227,27 @@
  :v "u" #'delete-duplicate-lines)
 #+END_SRC
 
+** LSP
+
+#+BEGIN_SRC emacs-lisp :results silent output
+(map!
+ :mode lsp-mode
+ :localleader
+ :prefix "l"
+ "f" #'lsp-format-buffer
+ "d" #'lsp-disconnect
+ "r" #'lsp-restart-workspace
+ "e" #'lsp-execute-code-action)
+#+END_SRC
 ** Org
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (map!
- :after org
- :map evil-org-mode-map
- "M-h" #'evil-window-left
- "M-l" #'evil-window-right
- "M-j" #'evil-window-down
- "M-k" #'evil-window-up
+ :map org-mode-map
+ :g "M-h" #'evil-window-left
+ :g "M-l" #'evil-window-right
+ :g "M-j" #'evil-window-down
+ :g "M-k" #'evil-window-up
 
  :localleader
  "'"   #'org-edit-special
