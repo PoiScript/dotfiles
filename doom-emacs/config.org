@@ -118,6 +118,7 @@
 #+BEGIN_SRC emacs-lisp :results silent output
 (after! org
   :config
+  (add-to-list 'org-modules 'org-drill)
   (setq
    org-bullets-bullet-list '("◉" "○")
    org-agenda-files  '("~/org/calendar.org")
@@ -170,9 +171,9 @@
 (use-package! org-drill
   :defer t
   :config
-  (add-to-list 'org-modules 'org-drill)
-  (setq org-drill-left-cloze-delimiter "<["
-        org-drill-right-cloze-delimiter "]>"))
+  (setq
+   org-drill-left-cloze-delimiter   "<["
+   org-drill-right-cloze-delimiter  "]>"))
 #+END_SRC
 
 * Keybindings
