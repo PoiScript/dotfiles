@@ -8,5 +8,4 @@
 (package! fcitx)
 ;; Sometimes, general.el don't get loaded automatically at startup.
 (package! general)
-(package! org-drill :recipe (:host gitlab :repo "phillord/org-drill"))
 (package! tiny)

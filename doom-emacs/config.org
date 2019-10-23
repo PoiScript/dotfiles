@@ -118,10 +118,9 @@
 #+BEGIN_SRC emacs-lisp :results silent output
 (after! org
   :config
-  (add-to-list 'org-modules 'org-drill)
   (setq
    org-bullets-bullet-list '("◉" "○")
-   org-agenda-files  '("~/org/calendar.org")
+   org-agenda-files  '("~/org/gtd/calendar.org")
    org-todo-keyword-faces
    '(("CANC" . "indian red")
      ("EVNT" . "orchid")
@@ -129,12 +128,10 @@
      ("TODO" . "#98be65"))
    org-highlight-latex-and-related  '(latex)
    org-capture-templates
-   '(("t" "Personal todo" entry
-      (file+headline "~/org/todo.org"  "Inbox")
+   '(("t" "Project" entry (file+headline "~/org/gtd/projects.org"  "Waiting")
       "\n* TODO %?\n:PROPERTIES:\nCREATED: %T\n:END:\n\n%i\n\n"
       :prepend t :kill-buffer t :empty-lines 1)
-     ("n" "Personal notes" entry
-      (file+headline "~/org/notes.org" "Inbox")
+     ("n" "Notes" entry (file+headline "~/org/note/draft.org" "Inbox")
       "\n* %u %?\n%i\n%a\n\n"
       :prepend t :kill-buffer t :empty-lines 1))
    org-format-latex-options (plist-put org-format-latex-options :scale 2)
@@ -167,24 +164,16 @@
        (org-add-planning-info nil nil 'closed)))))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :results silent output
-(use-package! org-drill
-  :defer t
-  :config
-  (setq
-   org-drill-left-cloze-delimiter   "<["
-   org-drill-right-cloze-delimiter  "]>"))
-#+END_SRC
-
 * Keybindings
 
 #+BEGIN_SRC emacs-lisp :results silent output
 (map!
  ;; window navigation
- "M-h"      #'evil-window-left
- "M-j"      #'evil-window-down
- "M-k"      #'evil-window-up
- "M-l"      #'evil-window-right
+ "M-H"      #'evil-window-left
+ "M-J"      #'evil-window-down
+ "M-K"      #'evil-window-up
+ "M-L"      #'evil-window-right
+ "M-D"      #'evil-window-delete
  "M-s"      #'save-buffer
  [mouse-6]  #'scroll-right
  [mouse-7]  #'scroll-left
@@ -207,7 +196,7 @@
 
  :leader
  (:prefix-map ("o" . "open")
-   "c" (λ! (find-file "~/org/calendar.org"))
+   "c" (λ! (find-file "~/org/gtd/calendar.org"))
    "n" (λ! (find-file +org-capture-notes-file))
    "t" (λ! (find-file +org-capture-todo-file)))
 
@@ -245,10 +234,6 @@
 #+BEGIN_SRC emacs-lisp :results silent output
 (map!
  :map org-mode-map
- :g "M-h" #'evil-window-left
- :g "M-l" #'evil-window-right
- :g "M-j" #'evil-window-down
- :g "M-k" #'evil-window-up
 
  :localleader
  "'"   #'org-edit-special

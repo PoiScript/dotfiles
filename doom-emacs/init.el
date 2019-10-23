@@ -31,9 +31,9 @@
        treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
-       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       workspaces        ; tab emulation, persistence & separate workspaces
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -52,6 +52,7 @@
        :emacs
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
+       ibuffer           ; interactive buffer management
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -101,6 +102,7 @@
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;ess               ; emacs speaks statistics
+       ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;go                ; the hipster dialect
        ;;(haskell +intero) ; a language that's lazier than I am
@@ -118,11 +120,14 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       org               ; organize your plain life in plain text
-       ;; +dragndrop       ; file drag & drop support
-       ;; +ipython         ; ipython support for babel
-       ;; +pandoc          ; pandoc integration into org's exporter
-       ;; +present)        ; using Emacs for presentations
+       (org              ; organize your plain life in plain text
+        ;+dragndrop       ; drag & drop files/images into org buffers
+        ;+hugo            ; use Emacs for hugo blogging
+        ;+ipython         ; ipython/jupyter support for babel
+        ;+pandoc          ; export-with-pandoc support
+        ;+pomodoro        ; be fruitful with the tomato technique
+        ;+present         ; using org-mode for presentations
+       )
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
