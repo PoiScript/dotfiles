@@ -1,0 +1,25 @@
+#+PROPERTY: header-args    :dir ~/.gnupg/ :comments link
+
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#installation][Installation]]
+  - [[#macos][macOS]]
+- [[#configuration][Configuration]]
+  - [[#gpg-agentconf][~gpg-agent.conf~]]
+#+END_QUOTE
+
+* Installation
+
+** macOS
+
+#+BEGIN_SRC bash
+brew install pinentry-mac
+#+END_SRC
+
+* Configuration
+
+** ~gpg-agent.conf~
+
+#+BEGIN_SRC conf :tangle gpg-agent.conf :os '(mac)
+pinentry-program /usr/local/bin/pinentry-mac
+#+END_SRC
