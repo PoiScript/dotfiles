@@ -1,12 +1,23 @@
 #+PROPERTY: header-args    :dir ~/.doom.d/ :comments link
 
-* Table of Contents :TOC:QUOTE:
+* Table of Contents :TOC_6:QUOTE:
 #+BEGIN_QUOTE
 - [[#installation][Installation]]
 - [[#configuration][Configuration]]
   - [[#initel][~init.el~]]
   - [[#packagesel][~packages.el~]]
   - [[#configel][~config.el~]]
+    - [[#general][General]]
+    - [[#packages][Packages]]
+      - [[#cdlatex][CDLaTeX]]
+      - [[#css][CSS]]
+      - [[#dart][Dart]]
+      - [[#edit-indirect][Edit-indirect]]
+      - [[#fcitx][Fcitx]]
+      - [[#modeline][Modeline]]
+      - [[#org][Org]]
+      - [[#projectile][Projectile]]
+    - [[#keybindings][Keybindings]]
   - [[#autoloadel][~autoload.el~]]
 #+END_QUOTE
 
@@ -205,9 +216,6 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 #+END_SRC
 
 ** ~config.el~
-:PROPERTIES:
-:END:
-
 *** General
 
 #+BEGIN_SRC elisp :results silent output :tangle config.el
