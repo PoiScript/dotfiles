@@ -1,6 +1,15 @@
-=~/.config/fontconfig/fonts.conf=:
+#+PROPERTY: header-args    :dir ~/.config/fontconfig/ :comments link :os '(linux)
 
-#+BEGIN_SRC xml :tangle ~/.config/fontconfig/fonts.conf :mkdirp yes
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#configuration][Configuration]]
+  - [[#fontsconf][~fonts.conf~]]
+#+END_QUOTE
+
+* Configuration
+
+** ~fonts.conf~
+#+BEGIN_SRC xml :tangle fonts.conf
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
 <fontconfig>

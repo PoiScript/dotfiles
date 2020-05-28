@@ -1,6 +1,21 @@
-=~/.local/share/konsole/poi.profile=:
+#+PROPERTY: header-args    :os '(linux)
 
-#+BEGIN_SRC conf :tangle ~/.local/share/konsole/poi.profile :mkdirp yes :comments link
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#configuration][Configuration]]
+  - [[#poiprofile][~poi.profile~]]
+  - [[#halfdarkcolorscheme][~HalfDark.colorscheme~]]
+  - [[#yakuakerc][~yakuakerc~]]
+#+END_QUOTE
+
+* Configuration
+:PROPERTIES:
+:header-args: :dir ~/.local/share/konsole/ :comments link
+:END:
+
+** ~poi.profile~
+
+#+BEGIN_SRC conf-toml :tangle poi.profile
 [Appearance]
 ColorScheme=HalfDark
 Font=Fira Code Retina,15,-1,5,53,0,0,0,0,0,Regular
@@ -28,9 +43,9 @@ ScrollBarPosition=2
 BlinkingCursorEnabled=false
 #+END_SRC
 
-=~/.local/share/konsole/HalfDark.colorscheme=:
+** ~HalfDark.colorscheme~
 
-#+BEGIN_SRC conf :tangle ~/.local/share/konsole/HalfDark.colorscheme :mkdirp yes :comments link
+#+BEGIN_SRC conf-toml :tangle HalfDark.colorscheme
 [Background]
 Color=40,44,52
 
@@ -128,9 +143,12 @@ Opacity=1
 Wallpaper=
 #+END_SRC
 
-=~/.config/yakuakerc=:
+** ~yakuakerc~
+:PROPERTIES:
+:header-args: :dir ~/.config/ :comments link
+:END:
 
-#+BEGIN_SRC conf :tangle ~/.config/yakuakerc :mkdirp yes :comments link
+#+BEGIN_SRC conf-toml :tangle yakuakerc
 [Appearance]
 Skin=arc-dark
 

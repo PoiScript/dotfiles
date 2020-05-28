@@ -1,0 +1,507 @@
+#+PROPERTY: header-args    :dir ~/.doom.d/ :comments link
+
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#installation][Installation]]
+- [[#configuration][Configuration]]
+  - [[#initel][~init.el~]]
+  - [[#packagesel][~packages.el~]]
+  - [[#configel][~config.el~]]
+  - [[#autoloadel][~autoload.el~]]
+#+END_QUOTE
+
+* Installation
+
+#+BEGIN_SRC bash
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
+#+END_SRC
+
+* Configuration
+** ~init.el~
+
+#+BEGIN_SRC elisp :tangle init.el
+;;; init.el -*- lexical-binding: t; -*-
+
+(doom! :input
+       ;;chinese
+       ;;japanese
+
+       :completion
+       company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       ivy               ; a search engine for love and life
+
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;fill-column       ; a `fill-column' indicator
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hydra
+       ;;indent-guides     ; highlighted indent columns
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ;;ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       ;;pretty-code       ; ligatures or substitute text with pretty symbols
+       ;;tabs              ; an tab bar for Emacs
+       treemacs          ; a project drawer, like neotree but cooler
+       ;;unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       ;;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;window-select     ; visually switch windows
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       ;;(format +onsave)  ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       ;;ibuffer         ; interactive buffer management
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       ;;spell             ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
+       :tools
+       ;;ansible
+       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       ;;direnv
+       ;;docker
+       editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       ;;eval              ; run code, run (also, repls)
+       ;;gist              ; interacting with github gists
+       ;;lookup            ; navigate your code and its documentation
+       lsp
+       ;;macos             ; MacOS-specific commands
+       magit             ; a git porcelain for Emacs
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       ;;rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;cc                ; C/C++/Obj-C madness
+       ;;clojure           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       data              ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fsharp           ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;(go +lsp)         ; the hipster dialect
+       ;;(haskell +dante)  ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ;
+       json              ; At least it ain't XML
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean
+       ;;factor
+       ledger            ; an accounting system in Emacs
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       org               ; organize your plain life in plain text
+       ;;perl              ; write code no one else can comprehend
+       ;;php               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       ;;python            ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (rust +lsp)       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;scala             ; java, but good
+       ;;scheme            ; a fully conniving family of lisps
+       (sh +fish)        ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       web               ; the tubes
+       yaml              ; JSON, but readable       :email
+
+       :email
+       ;;(mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
+       ;;calendar
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+
+       :config
+       ;;literate
+       (default +bindings +smartparens))
+#+END_SRC
+
+** ~packages.el~
+
+#+BEGIN_SRC elisp :tangle packages.el
+;; -*- no-byte-compile: t; -*-
+;;; ~/.doom.d/packages.el
+
+(package! auctex)
+(package! cdlatex)
+(package! dart-mode)
+(package! drag-stuff)
+(package! edit-indirect)
+;; (package! fcitx)
+;; Sometimes, general.el doesn't get loaded automatically at startup.
+(package! general)
+(package! tiny)
+#+END_SRC
+
+** ~config.el~
+:PROPERTIES:
+:END:
+
+*** General
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(setq-default
+ doom-font                    (font-spec :family "Sarasa Mono CL" :size 14)
+ doom-big-font                (font-spec :family "Sarasa Mono CL" :size 14)
+ browse-url-browser-function  'browse-url-default-browser
+ confirm-kill-emacs           'y-or-n-p
+ doom-localleader-key         "m"
+ evil-escape-key-sequence     "jk"
+ user-full-name               "PoiScript"
+ user-mail-address            "poiscript@gmail.com")
+#+END_SRC
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(defun window-system-setup (&optional frame)
+  (with-selected-frame (or frame (selected-frame))
+    (when window-system
+      (set-fontset-font t 'kana      (font-spec :family "Sarasa Mono J"  :size 14))
+      (set-fontset-font t 'cjk-misc  (font-spec :family "Sarasa Mono SC" :size 14))
+      (set-fontset-font t 'han       (font-spec :family "Sarasa Mono SC" :size 14)))))
+
+(add-hook! 'after-make-frame-functions 'window-system-setup)
+
+(window-system-setup)
+#+END_SRC
+
+*** Packages
+**** CDLaTeX
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(use-package! auctex :defer t)
+#+END_SRC
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(use-package! cdlatex
+  :after (:any org-mode LaTeX-mode)
+  :hook
+  ((LaTeX-mode . turn-on-cdlatex)
+   (org-mode . turn-on-org-cdlatex))
+  :config
+  (setq
+   cdlatex-command-alist
+   '(("lim"        "Insert \\lim_{}\\limits_{}"
+      "\\lim\\limits_{?}"  cdlatex-position-cursor nil nil t)
+     ("sin"        "Insert \\sin"
+      "\\sin"              nil                     nil t   t)
+     ("cos"        "Insert \\cos"
+      "\\cos"              nil                     nil t   t)
+     ("under"      "Insert \\underset{}{}"
+      "\\underset{?}{}"    cdlatex-position-cursor nil nil t)
+     ("prod"       "Insert \\prod\\limits_{}"
+      "\\prod\\limits_{?}" cdlatex-position-cursor nil nil t)
+     ("txt"        "Insert \\text{}"
+      "\\text{?}"          cdlatex-position-cursor nil nil t)
+     ("iintl"      "Insert \\iint\\limits_{}"
+      "\\iint\\limits_{?}" cdlatex-position-cursor nil nil t))
+   cdlatex-env-alist
+   '(("cases"   "\\begin{cases}\n?\n\\end{cases}\n"     nil)
+     ("aligned" "\\begin{aligned}\n?\n\\end{aligned}\n" nil))))
+#+END_SRC
+
+**** CSS
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(after! css-mode
+  :config
+  (setq css-fontify-colors nil))
+#+END_SRC
+
+**** Dart
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(use-package! dart-mode :defer t)
+#+END_SRC
+
+**** Edit-indirect
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(use-package! edit-indirect :defer t)
+#+END_SRC
+
+**** Fcitx
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+;; (use-package! fcitx
+;;   :config
+;;   (setq
+;;    fcitx-active-evil-states  '(insert emacs)
+;;    fcitx-remote-command      "fcitx5-remote"
+;;    fcitx-use-dbus            nil)
+;;   (fcitx-aggressive-setup))
+#+END_SRC
+
+**** Modeline
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(after! doom-modeline
+  :config
+  (setq
+   doom-modeline-buffer-file-name-style    'truncate-with-project
+   doom-modeline-buffer-modification-icon  nil
+   doom-modeline-env-version               nil)
+   (doom-modeline-def-modeline 'main
+    '(bar matches buffer-info remote-host buffer-position selection-info)
+    '(objed-state misc-info persp-name buffer-encoding lsp major-mode process vcs checker)))
+#+END_SRC
+
+**** Org
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(after! org
+  :config
+  (setq
+   org-bullets-bullet-list '("◉" "○")
+   org-agenda-files  '("~/org/gtd/calendar.org")
+   org-todo-keyword-faces
+   '(("CANC" . "indian red")
+     ("EVNT" . "orchid")
+     ("MIGR" . "rosy brown")
+     ("TODO" . "#98be65"))
+   org-highlight-latex-and-related  '(latex)
+   org-capture-templates
+   '(("t" "Project" entry (file+headline "~/org/gtd/projects.org"  "Waiting")
+      "\n* TODO %?\n:PROPERTIES:\nCREATED: %T\n:END:\n\n%i\n\n"
+      :prepend t :kill-buffer t :empty-lines 1)
+     ("n" "Notes" entry (file+headline "~/org/note/draft.org" "Inbox")
+      "\n* %u %?\n%i\n%a\n\n"
+      :prepend t :kill-buffer t :empty-lines 1))
+   org-format-latex-options (plist-put org-format-latex-options :scale 2)
+   org-latex-create-formula-image-program 'dvisvgm
+   org-latex-packages-alist '(("" "minted"))
+   org-latex-default-packages-alist
+   '(("AUTO"      "inputenc"  t ("pdflatex"))
+     ("T1"        "fontenc"   t ("pdflatex"))
+     (""          "amsmath"   t)
+     (""          "esint"     t) ;; fancy integral symbols
+     (""          "amssymb"   t)
+     (""          "capt-of"   nil)
+     (""          "graphicx"  t)
+     (""          "grffile"   t)
+     (""          "longtable" nil)
+     (""          "rotating"  nil)
+     (""          "textcomp"  t)
+     (""          "wrapfig"   nil)
+     ("normalem"  "ulem"      t)
+     ("hidelinks" "hyperref"  nil))
+   org-latex-listings 'minted
+   org-latex-pdf-process
+   '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (advice-add
+   'org-todo :after
+   (lambda (&optional arg)
+     (if (string= (org-get-todo-state) "DONE")
+         (org-add-planning-info 'closed (org-current-effective-time))
+       (org-add-planning-info nil nil 'closed)))))
+#+END_SRC
+
+**** Projectile
+
+Help ~lsp-mode~ find the cargo project root automatically:
+
+#+BEGIN_SRC elisp :results silent output :tangle config.el
+(after! projectile
+  (add-to-list 'projectile-project-root-files-top-down-recurring "Cargo.toml"))
+#+END_SRC
+
+*** Keybindings
+
+# #+BEGIN_SRC elisp :results silent output :tangle config.el
+# (map!
+#  ;; window navigation
+#  "M-H"       #'evil-window-left
+#  "M-J"       #'evil-window-down
+#  "M-K"       #'evil-window-up
+#  "M-L"       #'evil-window-right
+#  "M-D"       #'evil-window-delete
+#  "M-s"       #'save-buffer
+#  [mouse-8]   #'next-buffer
+#  [mouse-9]   #'previous-buffer
+#
+#  :nv "C-S-j" #'drag-stuff-down
+#  :nv "C-S-k" #'drag-stuff-up
+#  :nv "C-S-h" #'drag-stuff-left
+#  :nv "C-S-l" #'drag-stuff-right
+#
+#  :nv "C-M-j" #'evil-mc-make-cursor-move-next-line
+#  :nv "C-M-k" #'evil-mc-make-cursor-move-prev-line
+#
+#  ;; emacs motion
+#  :nvi "C-e"  #'end-of-line
+#  :nvi "C-a"  #'beginning-of-line
+#  :nvi "C-n"  #'next-line
+#  :nvi "C-p"  #'previous-line
+#
+#  :leader
+#  (:prefix-map ("o" . "open")
+#    "c" (λ! (find-file "~/org/gtd/calendar.org"))
+#    "n" (λ! (find-file "~/org/note/draft.org")))
+#
+#  (:prefix-map ("b" . "buffer")
+#    "w" #doom/sudo-this-file
+#    "s" #doom/switch-to-scratch-buffer)
+#
+#  (:prefix-map ("t" . "toggle")
+#    "m" #'toggle-frame-maximized))
+# #+END_SRC
+#
+# #+BEGIN_SRC elisp :results silent output
+# (map!
+#  :prefix "gl"
+#  :v "f" #'flush-lines
+#  :v "k" #'keep-lines
+#  :v "s" #'sort-lines
+#  :v "u" #'delete-duplicate-lines)
+# #+END_SRC
+#
+# ** LSP
+#
+# #+BEGIN_SRC elisp :results silent output
+# (map!
+#  :mode lsp-mode
+#  :localleader
+#  :prefix "l"
+#  "f" #'lsp-format-buffer
+#  "d" #'lsp-disconnect
+#  "r" #'lsp-restart-workspace
+#  "e" #'lsp-execute-code-action)
+# #+END_SRC
+#
+# ** Org
+#
+# #+BEGIN_SRC elisp :results silent output
+# (map!
+#  :map evil-org-mode-map
+#  :n "M-H"      #'evil-window-left
+#  :n "M-J"      #'evil-window-down
+#  :n "M-K"      #'evil-window-up
+#  :n "M-L"      #'evil-window-right
+#
+#  :localleader
+#  "'"   #'org-edit-special
+#  ","   #'org-priority
+#  "."   #'org-time-stamp
+#  "RET" #'org-ctrl-c-ret
+#  "S"   #'org-sort
+#  "d"   #'org-deadline
+#  "e"   #'org-export-dispatch
+#  "i"   #'org-toggle-inline-images
+#  "l"   #'org-toggle-link-display
+#  "m"   #'org-ctrl-c-ctrl-c
+#  "p"   #'org-latex-preview
+#  "s"   #'org-schedule
+#  "t"   #'org-todo
+#
+#  (:prefix-map ("b" . "narrow")
+#    "b" #'org-narrow-to-block
+#    "e" #'org-narrow-to-element
+#    "s" #'org-narrow-to-subtree)
+#
+#  (:prefix-map ("c" . "clock")
+#    "G" (λ! (org-clock-goto 'select))
+#    "c" #'org-clock-cancel
+#    "d" #'org-clock-display
+#    "e" #'org-clock-out
+#    "g" #'org-clock-goto
+#    "s" #'org-clock-in))
+# #+END_SRC
+#
+# ** Treemacs
+#
+# #+BEGIN_SRC elisp :results silent output
+# (map!
+#  :map evil-treemacs-state-map
+#  "n"   #'treemacs-decrease-width
+#  "w"   #'treemacs-increase-width
+#  "W"   #'treemacs-set-width)
+# #+END_SRC
+
+** ~autoload.el~
+
+#+BEGIN_SRC elisp :tangle autoload.el
+;;;###autoload
+(defun treemacs-increase-width ()
+  "Increase the width of treemacs by 5."
+  (interactive)
+  (setq treemacs-width (+ treemacs-width 5))
+  (treemacs--set-width treemacs-width))
+
+;;;###autoload
+(defun treemacs-decrease-width ()
+  "Decrease the width of treemacs by 5."
+  (interactive)
+  (setq treemacs-width (- treemacs-width 5))
+  (treemacs--set-width treemacs-width))
+#+END_SRC

@@ -1,0 +1,52 @@
+[[file:../images/alacritty+tmux+fish+starship.png]]
+
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#installation][Installation]]
+  - [[#macos][macOS]]
+  - [[#build-from-source][Build From Source]]
+- [[#configuration][Configuration]]
+  - [[#starshiptoml][~starship.toml~]]
+#+END_QUOTE
+
+* Installation
+
+** macOS
+
+#+BEGIN_SRC bash
+brew install starship
+#+END_SRC
+
+** Build From Source
+
+#+BEGIN_SRC fish
+cargo install starship
+strip ~/.cargo/bin/starship
+#+END_SRC
+
+* Configuration
+:PROPERTIES:
+:header-args: :dir ~/.config/ :comments link
+:END:
+
+** ~starship.toml~
+
+#+BEGIN_SRC conf-toml :tangle starship.toml
+prompt_order = [
+    "username",
+    "directory",
+    "git_branch",
+    "git_status",
+    "cmd_duration",
+    "line_break",
+    "jobs",
+    "character",
+]
+
+[directory]
+fish_style_pwd_dir_length = 1
+truncate_to_repo = true
+
+[character]
+symbol = "~>"
+#+END_SRC

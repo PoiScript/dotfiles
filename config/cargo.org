@@ -1,6 +1,6 @@
-=~/.cargo/config=:
+* Configuration
 
-#+BEGIN_SRC toml :tangle ~/.cargo/config :mkdirp yes :comments link
+#+BEGIN_SRC conf-toml :tangle ~/.cargo/config :mkdirp yes :comments link
 [source.crates-io]
 registry = "https://github.com/rust-lang/crates.io-index"
 replace-with = "ustc"

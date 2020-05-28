@@ -1,12 +1,42 @@
+[[file:../images/alacritty+tmux+fish+starship.png]]
+
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#installation][Installation]]
+  - [[#linux][~linux~]]
+  - [[#macos][~macOS~]]
+- [[#configuration][Configuration]]
+  - [[#tmuxconf][~tmux.conf~]]
+#+END_QUOTE
+
+* Installation
+
+** ~linux~
+
+#+BEGIN_SRC fish
+sudo pacman -Syu tmux
+#+END_SRC
+
 Install ~xclip~ to access X11 clipboard.
 
 #+BEGIN_SRC fish
 sudo pacman -Syu xclip
 #+END_SRC
 
-=~/.tmux.conf=:
+** ~macOS~
 
-#+BEGIN_SRC conf :tangle ~/.tmux.conf :comments link :mkdirp yes
+#+BEGIN_SRC fish
+brew install tmux
+#+END_SRC
+
+* Configuration
+
+** ~tmux.conf~
+:PROPERTIES:
+:header-args: :tangle ~/.tmux.conf :comments link
+:END:
+
+#+BEGIN_SRC conf
 set -g default-terminal "xterm-256color"
 set -g terminal-overrides ",xterm-24bit:Tc"
 set -g mouse on
@@ -40,24 +70,54 @@ bind -n M-w confirm-before -p "Kill pane? (y or n)" kill-pane
 bind -n M-y copy-mode
 bind -T copy-mode-vi WheelUpPane send -X scroll-up
 bind -T copy-mode-vi WheelDownPane send -X scroll-down
+#+END_SRC
 
-# Copy and paste
+~xclip~
+
+#+BEGIN_SRC conf :tangle ~/.tmux.conf
+# Copy and paste (linux)
 setw -g mode-keys vi
 bind -T copy-mode-vi v send-keys -X begin-selection
 bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -se c > /dev/null" \; display-message "Copied to clipboard."
 bind p run "xclip -o -se c | tmux load-buffer - ; tmux paste-buffer"
+#+END_SRC
 
+~pbcopy/pbpaste~
+
+#+BEGIN_SRC conf
+# Copy and paste (macOS)
+setw -g mode-keys vi
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -se c > /dev/null" \; display-message "Copied to clipboard."
+bind p run "xclip -o -se c | tmux load-buffer - ; tmux paste-buffer"
+#+END_SRC
+
+#+BEGIN_SRC conf
 # Status bar colors
 set -g status-style "fg=default,bg=default"
 
 # Left status bar
 set -g status-left "#{?client_prefix,#[bg=colour31],#[bg=colour61]} #S "
 set -g status-left-style fg=colour255
+#+END_SRC
 
-# Right status bar
+~/proc/loadavg~
+
+#+BEGIN_SRC conf
+# Right status bar (linux)
 set -g status-right "#[bg=colour234] #{session_attached} #[bg=colour236] #(cut -d ' ' -f 1-4 /proc/loadavg) #[fg=colour255,bg=colour61,bold] %H:%M "
 set -g status-right-style fg=colour249
+#+END_SRC
 
+~sysctl -n vm.loadavg~
+
+#+BEGIN_SRC conf
+# Right status bar (macos)
+set -g status-right "#[bg=colour234] #{session_attached} #[bg=colour236] #(sysctl -n vm.loadavg) #[fg=colour255,bg=colour61,bold] %H:%M "
+set -g status-right-style fg=colour249
+#+END_SRC
+
+#+BEGIN_SRC conf
 # Window status
 set -g window-status-format "#[bg=colour236] #I #[bg=colour234] #W "
 set -g window-status-style fg=colour249

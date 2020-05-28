@@ -1,6 +1,11 @@
-=~/.gitconfig=:
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#configuration][Configuration]]
+#+END_QUOTE
 
-#+BEGIN_SRC gitconfig :tangle ~/.gitconfig :mkdirp yes :comments link
+* Configuration
+
+#+BEGIN_SRC gitconfig :tangle ~/.gitconfig
 [user]
   name = PoiScript
   email = poiscript@gmail.com

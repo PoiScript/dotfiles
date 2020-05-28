@@ -1,8 +1,17 @@
-* Emacs Daemon
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#services][Services]]
+  - [[#emacsservice-emacs-daemon][~emacs.service~ (Emacs Daemon)]]
+#+END_QUOTE
 
-=~/.config/systemd/user/emacs.service=:
+* Services
+:PROPERTIES:
+:header-args: :dir ~/.config/systemd/user/ :comments link :os ('linux)
+:END:
 
-#+BEGIN_SRC conf :tangle ~/.config/systemd/user/emacs.service :mkdirp yes :comments link
+** ~emacs.service~ (Emacs Daemon)
+
+#+BEGIN_SRC conf :tangle emacs.service
 [Unit]
 Description=Emacs text editor daemon
 Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
