@@ -1,0 +1,282 @@
+[[file:../images/rime+dark.png]]
+
+[[file:../images/rime+light.png]]
+
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#installation][Installation]]
+  - [[#macos][macOS]]
+- [[#configuration][Configuration]]
+  - [[#defaultcustomyaml][~default.custom.yaml~]]
+  - [[#squirrelcustomyaml][~squirrel.custom.yaml~]]
+  - [[#double_pinyin_flypycustomyaml][~double_pinyin_flypy.custom.yaml~]]
+  - [[#double_pinyin_flypyschemayaml][~double_pinyin_flypy.schema.yaml~]]
+#+END_QUOTE
+
+* Installation
+
+** macOS
+
+#+BEGIN_SRC bash
+brew cask install squirrel
+#+END_SRC
+
+* Configuration
+:PROPERTIES:
+:header-args: :dir ~/Library/Rime/ :comments link
+:END:
+
+** ~default.custom.yaml~
+
+#+BEGIN_SRC yaml :tangle default.custom.yaml
+patch:
+  menu:
+    page_size: 10
+
+  schema_list:
+    - schema: double_pinyin_flypy
+
+  key_binder/bindings:
+    - { accept: ",", send: Page_Up, when: has_menu }
+    - { accept: "-", send: Page_Up, when: has_menu }
+    - { accept: ".", send: Page_Down, when: has_menu }
+    - { accept: "=", send: Page_Down, when: has_menu }
+#+END_SRC
+
+** ~squirrel.custom.yaml~
+
+#+BEGIN_SRC yaml :tangle squirrel.custom.yaml :os '(mac)
+patch:
+  show_notifications_when: "appropriate"
+
+  app_options:
+    com.apple.Spotlight:
+      ascii_mode: true
+    io.alacritty:
+      ascii_mode: true
+    net.kovidgoyal.kitty:
+      ascii_mode: true
+    com.apple.finder:
+      ascii_mode: true
+
+  style:
+    color_scheme: "OneHalfDark"
+    font_face: "Sarasa UI SC"
+    font_point: 16
+    label_font_face: "Sarasa UI SC"
+    label_font_point: 14
+    horizontal: true
+    inline_preedit: false
+    corner_radius: 5
+    border_height: 0
+    border_width: 0
+    border_color_width: 0
+
+  preset_color_schemes:
+    OneHalfDark:
+      name: "PoiScript"
+      author: "poiscript <poiscript@gmail.com>"
+      back_color: "0x342C28"
+      text_color: "0xE4DFDC"
+      border_color: "0x342C28"
+      hilited_text_color: "0xE4DFDC" # cyan
+      hilited_back_color: "0x342C28"
+      hilited_candidate_text_color: "0xC2B656"
+      hilited_candidate_back_color: "0x342C28"
+      hilited_candidate_label_color: "0xC2B656"
+      hilited_comment_text_color: "0xC2B656"
+      candidate_text_color: "0xE4DFDC"
+      label_color: "0xE4DFDC"
+      comment_text_color: "0xE4DFDC"
+
+    OneHalfLight:
+      name: "PoiScript"
+      author: "poiscript <poiscript@gmail.com>"
+      back_color: "0xFAFAFA"
+      text_color: "0x423A38"
+      border_color: "0xFAFAFA"
+      hilited_text_color: "0x423A38" # cyan
+      hilited_back_color: "0xFAFAFA"
+      hilited_candidate_text_color: "0xB39709"
+      hilited_candidate_back_color: "0xFAFAFA"
+      hilited_candidate_label_color: "0xB39709"
+      hilited_comment_text_color: "0xB39709"
+      candidate_text_color: "0x423A38"
+      label_color: "0x423A38"
+      comment_text_color: "0x423A38"
+#+END_SRC
+
+
+** ~double_pinyin_flypy.custom.yaml~
+
+#+BEGIN_SRC yaml :tangle double_pinyin_flypy.custom.yaml
+patch:
+  recognizer/patterns/reverse_lookup:
+  reverse_lookup:
+  schema/dependencies:
+  translator/preedit_format:
+
+  switches:
+    - name: ascii_mode
+      reset: 0
+      states: ["中文", "西文"]
+    - name: full_shape
+      states: ["半角", "全角"]
+    - name: simplification
+      reset: 1
+      states: ["漢字", "汉字"]
+#+END_SRC
+
+
+** ~double_pinyin_flypy.schema.yaml~
+
+#+BEGIN_SRC sh
+curl https://raw.githubusercontent.com/rime/rime-double-pinyin/master/double_pinyin_flypy.schema.yaml --output double_pinyin_flypy.schema.yaml
+#+END_SRC
+
+#+BEGIN_SRC yaml :tangle double_pinyin_flypy.schema.yaml
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: double_pinyin_flypy
+  name: 小鶴雙拼
+  version: "0.18"
+  author:
+    - double pinyin layout by 鶴
+    - Rime schema by 佛振 <chen.sst@gmail.com>
+  description: |
+    朙月拼音＋小鶴雙拼方案。
+  dependencies:
+    - stroke
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [中文, 西文]
+  - name: full_shape
+    states: [半角, 全角]
+  - name: simplification
+    states: [漢字, 汉字]
+  - name: ascii_punct
+    states: [。，, ．，]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - script_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - erase/^xx$/
+    - derive/^([jqxy])u$/$1v/
+    - derive/^([aoe])([ioun])$/$1$1$2/
+    - xform/^([aoe])(ng)?$/$1$1$2/
+    - xform/iu$/Q/
+    - xform/(.)ei$/$1W/
+    - xform/uan$/R/
+    - xform/[uv]e$/T/
+    - xform/un$/Y/
+    - xform/^sh/U/
+    - xform/^ch/I/
+    - xform/^zh/V/
+    - xform/uo$/O/
+    - xform/ie$/P/
+    - xform/i?ong$/S/
+    - xform/ing$|uai$/K/
+    - xform/(.)ai$/$1D/
+    - xform/(.)en$/$1F/
+    - xform/(.)eng$/$1G/
+    - xform/[iu]ang$/L/
+    - xform/(.)ang$/$1H/
+    - xform/ian$/M/
+    - xform/(.)an$/$1J/
+    - xform/(.)ou$/$1Z/
+    - xform/[iu]a$/X/
+    - xform/iao$/N/
+    - xform/(.)ao$/$1C/
+    - xform/ui$/V/
+    - xform/in$/B/
+    - xlit/QWRTYUIOPSDFGHJKLZXCVBNM/qwrtyuiopsdfghjklzxcvbnm/
+    #- abbrev/^(.).+$/$1/
+
+translator:
+  dictionary: luna_pinyin
+  prism: double_pinyin_flypy
+  preedit_format:
+    - xform/([bpmfdtnljqx])n/$1iao/
+    - xform/(\w)g/$1eng/
+    - xform/(\w)q/$1iu/
+    - xform/(\w)w/$1ei/
+    - xform/([dtnlgkhjqxyvuirzcs])r/$1uan/
+    - xform/(\w)t/$1ve/
+    - xform/(\w)y/$1un/
+    - xform/([dtnlgkhvuirzcs])o/$1uo/
+    - xform/(\w)p/$1ie/
+    - xform/([jqx])s/$1iong/
+    - xform/(\w)s/$1ong/
+    - xform/(\w)d/$1ai/
+    - xform/(\w)f/$1en/
+    - xform/(\w)h/$1ang/
+    - xform/(\w)j/$1an/
+    - xform/([gkhvuirzcs])k/$1uai/
+    - xform/(\w)k/$1ing/
+    - xform/([jqxnl])l/$1iang/
+    - xform/(\w)l/$1uang/
+    - xform/(\w)z/$1ou/
+    - xform/([gkhvuirzcs])x/$1ua/
+    - xform/(\w)x/$1ia/
+    - xform/(\w)c/$1ao/
+    - xform/([dtgkhvuirzcs])v/$1ui/
+    - xform/(\w)b/$1in/
+    - xform/(\w)m/$1ian/
+    - xform/([aoe])\1(\w)/$1$2/
+    - "xform/(^|[ '])v/$1zh/"
+    - "xform/(^|[ '])i/$1ch/"
+    - "xform/(^|[ '])u/$1sh/"
+    - xform/([jqxy])v/$1u/
+    - xform/([nl])v/$1ü/
+
+reverse_lookup:
+  dictionary: stroke
+  enable_completion: true
+  prefix: "`"
+  suffix: "'"
+  tips: 〔筆畫〕
+  preedit_format:
+    - xlit/hspnz/一丨丿丶乙/
+  comment_format:
+    - xform/([nl])v/$1ü/
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "`[a-z]*'?$"
+#+END_SRC
