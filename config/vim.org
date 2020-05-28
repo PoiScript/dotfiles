@@ -1,0 +1,11 @@
+* Table of Contents :TOC:QUOTE:
+#+BEGIN_QUOTE
+- [[#configuration][Configuration]]
+#+END_QUOTE
+
+* Configuration
+
+#+BEGIN_SRC conf :tangle ~/.vimrc
+syntax on
+set number
+#+END_SRC
